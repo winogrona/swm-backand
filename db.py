@@ -75,6 +75,8 @@ class Machines(DeclarativeBase): # type: ignore
             "latitude": self.latitude,
             "longitude": self.longitude
         }
+    
+
 
 Session = sessionmaker(bind=engine)
 session = Session()

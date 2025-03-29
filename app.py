@@ -79,5 +79,20 @@ def get_product(product_id: int):
 def serve_file(filename):
     return send_from_directory("imgs", filename)
 
+@app.route("/getStatistick", methods=["GET"])
+def get_statistick():
+    statistics = {
+        "total__recycled_products": 100,
+        "total_categories": 10,
+        "total_materials": 50,
+        "most_popular_product": "Plastic Bottle"
+    }
+    response = Response(
+        status=HTTPStatus.OK,
+        data=statistics
+    )
+    return response.to_dict(), 200
+
+
 if __name__ == '__main__':
     app.run()
