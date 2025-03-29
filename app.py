@@ -4,6 +4,7 @@ import random
 from datetime import datetime, timedelta
 
 from flask import Flask # type: ignore
+from flask_cors import CORS # type: ignore
 from dataclasses import dataclass
 from flask import request, send_from_directory
 
@@ -43,6 +44,7 @@ class Response:
         }
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/getProducts", methods=["GET"])
 def get_products():
