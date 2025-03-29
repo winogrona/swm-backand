@@ -69,7 +69,7 @@ class Machines(DeclarativeBase): # type: ignore
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
 
-    def __todict__(self) -> dict:
+    def todict(self) -> dict:
         return {
             "id": self.id,
             "latitude": self.latitude,
@@ -97,3 +97,18 @@ if __name__ == "__main__":
         session.add(product)
         session.commit()
         print("Added product %s" % product.name)
+
+    elif argv[1] == "addmachine":
+        machine = Machines(
+            latitude=float(argv[2]),
+            longitude=float(argv[3])
+        )
+
+        session.add(machine)
+        session.commit()
+        print("Added machine %s" % machine.id)
+
+    else:
+        print("Invalid command")
+        exit(1)
+    

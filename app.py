@@ -107,5 +107,44 @@ def get_machines():
     )
     return response.to_dict(), 200
 
+@app.route("/getUserInfo", methods=["GET"])
+def get_user_info():
+    response = Response(
+        status=HTTPStatus.OK,
+        data={
+            "id": 1,
+            "qrcodeValue": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            "photoUrl": "imgs/avatar.jpg",
+            "prettyName": "Bartek Leonowski",
+            "balance": 35673
+        }
+    )
+
+    return response.to_dict(), 200
+
+@app.route("/getUserTransactionHistory", methods=["GET"])
+def get_user_transaction_history():
+    transactions = [
+        {
+            "id": 1,
+            "timestamp": datetime.now() - timedelta(days=1),
+            "productId": 1,
+        },
+        {
+            "id": 2,
+            "timestamp": datetime.now() - timedelta(days=2),
+            "productId": 2,
+        }
+    ]
+
+    response = Response(
+        status=HTTPStatus.OK,
+        data={
+            "transactions": transactions
+        }
+    )
+
+    return response.to_dict(), 200
+
 if __name__ == '__main__':
     app.run()
