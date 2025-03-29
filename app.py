@@ -56,6 +56,25 @@ def get_products():
     )
     return response.to_dict(), 200
 
+@app.route("/getProduct/<int:product_id>", methods=["GET"])
+def get_product(product_id: int):
+    product = db.query(Products).filter(Products.id == product_id).first()
+    if product is None:
+        response = Response(
+            status=HTTPStatus.NOT_FOUND,
+            data={},
+            message="Product not found"
+        )
+        return response.to_dict(), 404
+
+    response = Response(
+        status=HTTPStatus.OK,
+        data={
+            "product": product.todict()
+        }
+    )
+    return response.to_dict(), 200
+
 @app.route("/imgs/<path:filename>")
 def serve_file(filename):
     return send_from_directory("imgs", filename)
