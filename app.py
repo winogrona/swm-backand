@@ -122,7 +122,7 @@ def get_user_info():
 
     return response.to_dict(), 200
 
-@app.route("/getUserTransactionHistory", methods=["GET"])
+@app.route("/getTransactionHistory", methods=["GET"])
 def get_user_transaction_history():
     transactions = [
         {
