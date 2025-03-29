@@ -84,11 +84,11 @@ def serve_file(filename):
 @app.route("/getStatistics", methods=["GET"])
 def get_statistics():
     statistics = {
-        "TotalRecycledProducts": 20,
-        "GlassRecycled": 4, 
-        "MetalRecycled": 5,
-        "PlasticRecycled": 5,
-        "PaperRecycled": 6,
+        "TotalRecycledProducts": 1984,
+        "GlassRecycled": 2137, 
+        "MetalRecycled": 1489,
+        "PlasticRecycled": 228,
+        "PaperRecycled": 1337,
         "MostPopularProduct": "Plastic Bottle"
     }
     response = Response(
