@@ -136,6 +136,46 @@ def get_user_transaction_history():
             "id": 2,
             "timestamp": datetime.now() - timedelta(days=2),
             "productId": 2,
+        },
+        {
+            "id": 3,
+            "timestamp": datetime.now() - timedelta(days=2),
+            "productId": 3,
+        },
+        {
+            "id": 4,
+            "timestamp": datetime.now() - timedelta(days=2),
+            "productId": 5,
+        },
+        {
+            "id": 5,
+            "timestamp": datetime.now() - timedelta(days=2),
+            "productId": 2,
+        },
+        {
+            "id": 6,
+            "timestamp": datetime.now() - timedelta(days=2),
+            "productId": 7,
+        },
+        {
+            "id": 7,
+            "timestamp": datetime.now() - timedelta(days=2),
+            "productId": 1,
+        },
+        {
+            "id": 8,
+            "timestamp": datetime.now() - timedelta(days=2),
+            "productId": 5,
+        },
+        {
+            "id": 9,
+            "timestamp": datetime.now() - timedelta(days=2),
+            "productId": 2,
+        },
+        {
+            "id": 10,
+            "timestamp": datetime.now() - timedelta(days=2),
+            "productId": 2,
         }
     ]
 
