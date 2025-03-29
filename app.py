@@ -41,6 +41,38 @@ class Response:
 
 app = Flask(__name__)
 
+@app.route("/register", methods=["GET"])
+def register():
+    username = request.args.get("username")
+    password = request.args.get("password")
+
+    if username is None or password is None:
+        response = Response(
+            status=HTTPStatus.BAD_REQUEST,
+            data={}
+        )
+        return response.to_dict(), 400
+
+    salt = random.randbytes(16).hex()
+    password_hash = hashlib.sha256((salt + password).encode()).hexdigest()
+
+    user = User(
+        username=username,
+        password_hash=password_hash,
+        salt=salt,
+        created_at=datetime.now()
+    )
+    db.add(user)
+    db.commit()
+
+    response = Response(
+        status=HTTPStatus.OK,
+        data={
+            "user_id": user.id
+        }
+    )
+    return response.to_dict(), 200
+
 @app.route("/authorize", methods=["GET"])
 def authorize(): # args: username: String, password: String
     username = request.args.get("username")
@@ -61,7 +93,7 @@ def authorize(): # args: username: String, password: String
         )
         return response.to_dict(), 404
     
-    password_hash = hashlib.sha256(password.encode()).hexdigest()
+    password_hash = hashlib.sha256((user.salt + password).encode()).hexdigest()
     if password_hash != user.password_hash:
         response = Response(
             status=HTTPStatus.UNAUTHORIZED,
