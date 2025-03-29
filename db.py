@@ -6,6 +6,7 @@ from sqlalchemy import Column, Integer, String, Float, DateTime
 from sqlalchemy.orm import sessionmaker
 
 from enum import Enum
+from sys import argv
 
 from config import config # type: ignore
 
@@ -48,15 +49,15 @@ class Products(DeclarativeBase): # type: ignore
     category = Column(String, nullable=False)
     materials = Column(String, nullable=False)
 
-    def __todict__(self) -> dict:
+    def todict(self) -> dict:
         return {
             "id": self.id,
-            "storePictureUrl": self.storePictureUrl,
-            "productPictureUrl": self.productPictureUrl,
+            "store_picture_url": self.store_picture_url,
+            "product_picture_url": self.product_picture_url,
             "name": self.name,
             "description": self.description,
             "cost": self.cost,
-            "percentRecycled": self.percentRecycled,
+            "percent_recycled": self.percent_recycled,
             "category": self.category,
             "materials": self.materials
         }
@@ -79,6 +80,18 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 if __name__ == "__main__":
-    with engine.connect() as connection:
-        result = connection.execute(text("SELECT 'Hello, PostgreSQL!'"))
-        print(result.fetchone()[0])
+    if argv[1] == "addproduct":
+        product = Products(
+            store_picture_url=argv[2],
+            product_picture_url=argv[3],
+            name=argv[4],
+            description=argv[5],
+            cost=int(argv[6]),
+            percent_recycled=int(argv[7]),
+            category=argv[8],
+            materials=argv[9]
+        )
+
+        session.add(product)
+        session.commit()
+        print("Added product %s" % product.name)

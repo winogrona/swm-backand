@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 from flask import Flask # type: ignore
 from dataclasses import dataclass
-from flask import request
+from flask import request, send_from_directory
 
 from http import HTTPStatus
 
@@ -47,7 +47,7 @@ app = Flask(__name__)
 @app.route("/getProducts", methods=["GET"])
 def get_products():
     products = db.query(Products).all()
-    products_list = [product.__todict__() for product in products]
+    products_list = [product.todict() for product in products]
     response = Response(
         status=HTTPStatus.OK,
         data={
@@ -55,6 +55,10 @@ def get_products():
         }
     )
     return response.to_dict(), 200
+
+@app.route("/imgs/<path:filename>")
+def serve_file(filename):
+    return send_from_directory("imgs", filename)
 
 if __name__ == '__main__':
     app.run()
