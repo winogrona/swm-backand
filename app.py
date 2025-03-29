@@ -22,7 +22,7 @@ class Response:
     message: str
     data: dict
 
-    def __call__(self, status: HTTPStatus, data: dict, message: str | None = None):
+    def __init__(self, status: HTTPStatus, data: dict, message: str | None = None):
         self.status = status.value
 
         if message is None:
