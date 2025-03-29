@@ -10,7 +10,7 @@ from flask import request, send_from_directory
 from http import HTTPStatus
 
 from config import config
-from db import session as db, Products, Category, Materials
+from db import session as db, Products, Category, Materials, Machines
 
 from enum import Enum
 
@@ -95,6 +95,17 @@ def get_statistics():
     )
     return response.to_dict(), 200
 
+@app.route("/getMachines", methods=["GET"])
+def get_machines():
+    machines = db.query(Machines).all()
+    machines_list = [machine.todict() for machine in machines]
+    response = Response(
+        status=HTTPStatus.OK,
+        data={
+            "machines": machines_list
+        }
+    )
+    return response.to_dict(), 200
 
 if __name__ == '__main__':
     app.run()
