@@ -1,16 +1,18 @@
-CREATE TABLE users (
+CREATE TABLE products (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password_hash CHAR(64) NOT NULL,
-    salt CHAR(16) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    product_id INT NOT NULL UNIQUE,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    cost INT NOT NULL,
+    percent_recycled INT,
+    category VARCHAR(255),
+    materials TEXT,
+    store_picture_url TEXT,
+    product_picture_url TEXT
 );
 
-CREATE TABLE tokens (
+CREATE TABLE machines (
     id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    token CHAR(64) NOT NULL UNIQUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    expires_at TIMESTAMP NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    longitude FLOAT NOT NULL,
+    latitude FLOAT NOT NULL
 );
